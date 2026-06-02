@@ -4,7 +4,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from helpers import generate_user, register_user, delete_user
 from pages.login_page import LoginPage
-from urls import BASE_URL
+from urls import BASE_URL, LOGIN_URL
 
 def pytest_addoption(parser):
     parser.addoption(
@@ -41,6 +41,6 @@ def logged_in_browser(browser, user):
     login_page.open()
     login_page.login(user["email"], user["password"])
     WebDriverWait(browser, 15).until(
-        EC.url_changes(f"{BASE_URL}/login")
+        EC.url_changes(LOGIN_URL)
     )
     return browser

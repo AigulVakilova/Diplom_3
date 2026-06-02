@@ -1,7 +1,7 @@
 import random
 import string
 import requests
-from urls import API_URL
+from urls import REGISTER_URL, DELETE_USER_URL, INGREDIENTS_URL
 
 def random_string(length=8):
     """Генерирует случайную строку из строчных букв заданной длины."""
@@ -17,12 +17,22 @@ def generate_user():
 
 def register_user(user):
     """Регистрирует пользователя через API и возвращает ответ сервера."""
-    response = requests.post(f"{API_URL}/auth/register", json=user)
+    response = requests.post(REGISTER_URL, json=user)
     return response.json()
 
 def delete_user(token):
     """Удаляет пользователя через API по токену авторизации."""
     requests.delete(
-        f"{API_URL}/auth/user",
+        DELETE_USER_URL,
         headers={"Authorization": token},
     )
+
+def get_token(user):
+    """Регистрирует пользователя и возвращает accessToken."""
+    response = requests.post(REGISTER_URL, json=user)
+    return response.json()["accessToken"]
+
+def get_valid_ingredient():
+    """Возвращает id первого валидного ингредиента из базы сервера."""
+    response = requests.get(INGREDIENTS_URL)
+    return response.json()["data"][0]["_id"]

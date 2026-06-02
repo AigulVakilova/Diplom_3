@@ -29,8 +29,9 @@ class BasePage:
         except Exception:
             return False
 
-    def current_url(self):
-        return self.driver.current_url
-
     def wait_for_url(self, url):
         self.wait.until(EC.url_contains(url))
+
+    def get_current_url(self):
+        return self.driver.current_url
+    

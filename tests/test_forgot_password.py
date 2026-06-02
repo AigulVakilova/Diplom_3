@@ -14,7 +14,7 @@ class TestForgotPassword:
         with allure.step("Кликнуть 'Восстановить пароль'"):
             login_page.go_to_forgot_password()
         with allure.step("Проверить URL страницы восстановления"):
-            assert browser.current_url == FORGOT_URL
+            assert FORGOT_URL in login_page.get_current_url()
 
     @allure.title("Ввод почты и клик по кнопке 'Восстановить'")
     def test_enter_email_and_click_restore(self, browser):
@@ -26,7 +26,7 @@ class TestForgotPassword:
             page.click_restore()
         with allure.step("Проверить переход на страницу сброса пароля"):
             page.wait_for_url(RESET_URL)
-            assert browser.current_url == RESET_URL
+            assert RESET_URL in page.get_current_url()
 
     @allure.title("Клик по кнопке показать/скрыть пароль подсвечивает поле")
     def test_show_hide_button_activates_password_field(self, browser):

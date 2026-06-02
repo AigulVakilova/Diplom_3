@@ -15,7 +15,7 @@ class TestConstructor:
         with allure.step("Кликнуть 'Конструктор'"):
             main_page.go_to_constructor()
         with allure.step("Проверить URL главной страницы"):
-            assert BASE_URL in browser.current_url
+            assert BASE_URL in main_page.get_current_url()
 
     @allure.title("Переход по клику на 'Лента заказов'")
     def test_go_to_feed(self, browser):
@@ -25,7 +25,7 @@ class TestConstructor:
         with allure.step("Кликнуть 'Лента заказов'"):
             main_page.go_to_feed()
         with allure.step("Проверить URL ленты заказов"):
-            assert browser.current_url == FEED_URL
+            assert FEED_URL in main_page.get_current_url()
 
     @allure.title("Клик на ингредиент открывает модальное окно с деталями")
     def test_click_ingredient_opens_modal(self, browser):

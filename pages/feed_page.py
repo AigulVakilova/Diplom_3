@@ -39,7 +39,7 @@ class FeedPage(BasePage):
         return True
 
     def wait_for_counter_increase(self, locator, initial_value):
-        self.long_wait.until(
+        WebDriverWait(self.driver, 60).until(
             lambda d: int(d.find_element(*locator).text) > initial_value
         )
         return int(self.get_text(locator))

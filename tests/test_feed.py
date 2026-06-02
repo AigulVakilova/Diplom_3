@@ -5,6 +5,7 @@ from pages.profile_page import ProfilePage
 from locators.feed_page_locators import FeedPageLocators
 from urls import PROFILE_URL, ORDER_HISTORY_URL
 
+
 @allure.feature("Лента заказов")
 class TestFeed:
 
@@ -63,6 +64,7 @@ class TestFeed:
 
         with allure.step("Проверить, что счётчик увеличился"):
             feed_page.open()
+            feed_page.find(FeedPageLocators.TOTAL_ALL_TIME)
             counter_after = feed_page.wait_for_counter_increase(
                 FeedPageLocators.TOTAL_ALL_TIME, counter_before
             )
@@ -86,6 +88,7 @@ class TestFeed:
 
         with allure.step("Проверить, что счётчик увеличился"):
             feed_page.open()
+            feed_page.find(FeedPageLocators.TOTAL_TODAY)
             counter_after = feed_page.wait_for_counter_increase(
                 FeedPageLocators.TOTAL_TODAY, counter_before
             )

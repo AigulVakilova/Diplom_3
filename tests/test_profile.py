@@ -13,7 +13,7 @@ class TestProfile:
             page.go_to_profile()
         with allure.step("Проверить URL профиля"):
             page.wait_for_url(PROFILE_URL)
-            assert PROFILE_URL in logged_in_browser.current_url
+            assert PROFILE_URL in page.get_current_url()
 
     @allure.title("Переход в раздел 'История заказов'")
     def test_go_to_order_history(self, logged_in_browser):
@@ -21,10 +21,11 @@ class TestProfile:
         profile_page = ProfilePage(logged_in_browser)
         with allure.step("Перейти в личный кабинет через клик"):
             main_page.go_to_profile()
+            main_page.wait_for_url(PROFILE_URL)
         with allure.step("Кликнуть 'История заказов'"):
             profile_page.go_to_order_history()
         with allure.step("Проверить URL"):
-            assert ORDER_HISTORY_URL in logged_in_browser.current_url
+            assert ORDER_HISTORY_URL in profile_page.get_current_url()
 
     @allure.title("Выход из аккаунта")
     def test_logout(self, logged_in_browser):
@@ -36,4 +37,4 @@ class TestProfile:
             profile_page.logout()
         with allure.step("Проверить редирект на логин"):
             profile_page.wait_for_url(LOGIN_URL)
-            assert LOGIN_URL in logged_in_browser.current_url
+            assert LOGIN_URL in profile_page.get_current_url()
